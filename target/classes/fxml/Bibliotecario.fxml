@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="169.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.gui.BibliotecarioController">
+   <children>
+      <Button layoutX="56.0" layoutY="54.0" mnemonicParsing="false" onAction="#Livros_Click" text="Livros" />
+      <Button layoutX="24.0" layoutY="93.0" mnemonicParsing="false" onAction="#CadastrarAutores_Click" text="Cadastrar autores" />
+      <Label layoutX="46.0" layoutY="23.0" text="Bibliotecário">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="20.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../icons8-usuário-48.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

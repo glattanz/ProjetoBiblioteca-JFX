@@ -1,0 +1,34 @@
+<!-- Header do persistence -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<!-- Unidade de persistência: Cada uma faz conexão com um bd diferente, caso queira mais do que um bd -->
+	<!-- Definimos o nome da persistência aqui! -->
+	<persistence-unit name="jpa_n2">
+		<!-- Implementação do JPA, no nessa caso Hibernate -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Propriedades JDBC -->
+		<properties>
+			<!-- Driver -->
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <!-- Connection String, N2 é o nome do banco -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/prog3" />
+            <!-- Usuário e senha do banco -->
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="123" />
+            
+			<!-- Configurações específicas do Hibernate -->
+            <!-- Dialeto do Hibernate será compatível com o PostGres -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <!-- Se não tiver nenhuma tabela ele faz um update -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+            <!-- Mostra os comandos SQL que estão sendo executadas no console -->
+			<property name="hibernate.show_sql" value="true" />
+            <!-- Formatação dos comandos SQL -->
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
