@@ -6,7 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -18,8 +17,7 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
     private String titulo;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "autor_nome")
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Autor autor;
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Exemplar> exemplares;
@@ -28,12 +26,34 @@ public class Livro {
 
     }
 
-    public Livro(Long codigo, String titulo, Autor autor) {
+    public Livro(String titulo, Autor autor) {
 
-        this.codigo = codigo;
         this.titulo = titulo;
         this.autor = autor;
         
+    }
+
+    public void adicionarExemplar(Exemplar exemplar){
+        this.exemplares.add(exemplar);
+    }
+
+    // public void removerUltimoExemplar(){
+
+    //     int indexUltimo = this.exemplares.size();
+
+    //     this.exemplares.remove(indexUltimo);
+    // }
+    
+    public Exemplar retornaExemplar(){
+
+        int indexUltimo = this.exemplares.size();
+
+        return this.exemplares.get(indexUltimo);
+    }
+
+    @Override
+    public String toString() {
+        return titulo.toString();
     }
 
     //Getters and Setters
@@ -57,8 +77,7 @@ public class Livro {
         this.autor = autor;
     }
 
-    @Override
-    public String toString() {
-        return titulo.toString();
+    public List<Exemplar> getExemplares() {
+        return exemplares;
     }
 }

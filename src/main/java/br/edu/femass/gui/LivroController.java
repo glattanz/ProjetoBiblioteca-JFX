@@ -34,7 +34,7 @@ public class LivroController implements Initializable {
     @FXML
     private ListView<Livro> ListaLivros;
     @FXML
-    private TableView<Exemplar> TabelaEmprestimos;
+    private TableView<Exemplar> TabelaEmprestimos; //TODO: Que porra é essa
     @FXML
     private Button BotaoSalvar;
     @FXML
@@ -60,8 +60,11 @@ public class LivroController implements Initializable {
     @FXML
     private void Salvar_Click(ActionEvent event) {
 
+        Autor autor = ComboBoxAutores.getSelectionModel().getSelectedItem();
+        
         livro.setTitulo(CampoTitulo.getText());
-       // livro.setAutor(ComboBoxAutores.getSelec);
+        livro.setAutor(autor);
+        autor.adicionarLstLivro(livro); 
         
         if (inserindo) {
             daoLivro.inserir(livro);
@@ -99,6 +102,7 @@ public class LivroController implements Initializable {
         //Deixa os campos em branco
         CampoCodigo.setText("");
         CampoTitulo.setText("");
+        ComboBoxAutores.setValue(null);
         //TO DO: Verificar como fica a combobox 
 
         //Deixa o cursor nesse campo para digitar
@@ -155,10 +159,10 @@ public class LivroController implements Initializable {
         ObservableList<Livro> data1 = FXCollections.observableArrayList(livros);
         ListaLivros.setItems(data1);
 
-        /*List<Exemplar> exemplares = daoExemplar.buscarTodos();
+        List<Exemplar> exemplares = daoExemplar.buscarTodos();
 
         ObservableList<Exemplar> data2 = FXCollections.observableArrayList(exemplares);
-        TabelaEmprestimos.setItems(data2);*/
+        TabelaEmprestimos.setItems(data2);
 
         List<Autor> autores = daoAutor.buscarTodos();
 

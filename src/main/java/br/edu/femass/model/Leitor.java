@@ -61,40 +61,31 @@ public class Leitor {
     public Long getCodigo() {
         return codigo;
     }
-
     public String getNome() {
         return nome;
     }
-
     public String getEndereco() {
         return endereco;
     }
-
     public String getTelefone() {
         return telefone;
     }
-
     public Integer getPrazoMaximoDevolucao() {
         return prazoMaximoDevolucao;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
-
     public void setPrazoMaximoDevolucao(Integer prazoMaximoDevolucao) {
         this.prazoMaximoDevolucao = prazoMaximoDevolucao;
-    }
+    }   
 }

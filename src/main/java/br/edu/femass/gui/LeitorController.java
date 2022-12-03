@@ -4,9 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import br.edu.femass.model.Aluno;
 import br.edu.femass.model.Leitor;
 import br.edu.femass.model.Professor;
@@ -19,8 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -39,7 +40,15 @@ public class LeitorController implements Initializable {
     @FXML
     private TextField CampoDisciplina;
     @FXML
+    private TextField CampoInfoEspecifica;
+    @FXML
     private TableView<Leitor> TabelaLeitores;
+    @FXML
+    private TableColumn<Leitor, String>ColunaEndereco;
+    @FXML
+    private TableColumn<Leitor, String>ColunaNome;
+    @FXML
+    private TableColumn<Leitor, String>ColunaTelefone;
     // @FXML
     // private TableView<Emprestimo> TabelaEmprestimos;
     @FXML
@@ -51,7 +60,9 @@ public class LeitorController implements Initializable {
     @FXML
     private Button BotaoExcluir;
     @FXML
-    private ComboBox<String> ComboBoxTipoLeitor;
+    private ComboBox<Class> ComboBoxTipoLeitor;
+    @FXML
+    private Label LabelInfoEspecifica;
     
     private DaoAluno daoAluno = new DaoAluno();
     private DaoProfessor daoProfessor = new DaoProfessor();
@@ -65,50 +76,55 @@ public class LeitorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         preencherLista();
+        ColunaNome.setCellValueFactory(new PropertyValueFactory<Leitor, String>("nome"));
+        ColunaEndereco.setCellValueFactory(new PropertyValueFactory<Leitor, String>("endereco"));
+        ColunaTelefone.setCellValueFactory(new PropertyValueFactory<Leitor, String>("telefone"));
 
     }    
 
     @FXML
     private void Salvar_Click(ActionEvent event) {
 
-        boolean bool = false;
+        int indexCombo = ComboBoxTipoLeitor.getSelectionModel().getSelectedIndex();
 
-        while(bool == false) {
+            if(indexCombo == 0){
 
-            if(ComboBoxTipoLeitor.getOnAction().getClass() == Aluno.class){
+                aluno = new Aluno();
 
                 aluno.setNome(CampoNome.getText());
                 aluno.setEndereco(CampoEndereco.getText());
                 aluno.setTelefone(CampoTelefone.getText());
+                aluno.setMatricula(CampoInfoEspecifica.getText());
                 
                 if (inserindo) {
-                    aluno = new Aluno();
-
                     daoAluno.inserir(aluno);
                 }else{
                     daoAluno.alterar(aluno);
                 }
 
-                bool = true;
+                //bool = true;
+                //break;
 
-            }else if(ComboBoxTipoLeitor.getSelectionModel().getSelectedItem().toString() == "Professor"){
+            }else if(indexCombo == 1){
+
+                professor = new Professor();
 
                 professor.setNome(CampoNome.getText());
                 professor.setEndereco(CampoEndereco.getText());
                 professor.setTelefone(CampoTelefone.getText());
+                professor.setDisciplina(CampoInfoEspecifica.getText());
                 
                 if (inserindo) {
-                    professor = new Professor();
-
                     daoProfessor.inserir(professor);
                 }else{
                     daoProfessor.alterar(professor);
                 }
 
-                bool = true;
-            }
+                //bool = true;
+                //break;
+            //}
 
-            JOptionPane.showMessageDialog(null, this, "Selecione um tipo de leitor", 3);
+            //JOptionPane.showMessageDialog(null, this, "Selecione um tipo de leitor", 3);
         }
 
         preencherLista();
@@ -129,10 +145,14 @@ public class LeitorController implements Initializable {
 
         if (TabelaLeitores.getSelectionModel().getSelectedItem().getClass() == Aluno.class) {
             
+            aluno = (Aluno) TabelaLeitores.getSelectionModel().getSelectedItem();
+            
             daoAluno.apagar(aluno);
 
         } else if (TabelaLeitores.getSelectionModel().getSelectedItem().getClass() == Professor.class) {
             
+            professor = (Professor) TabelaLeitores.getSelectionModel().getSelectedItem();
+
             daoProfessor.apagar(professor);
 
         }
@@ -151,7 +171,9 @@ public class LeitorController implements Initializable {
         CampoNome.setText("");
         CampoEndereco.setText("");
         CampoTelefone.setText("");
+        CampoInfoEspecifica.setText("");
         CampoPrazo.setText("");
+        LabelInfoEspecifica.setText("");
 
         //Deixa o cursor nesse campo para digitar
         CampoNome.requestFocus();
@@ -174,9 +196,30 @@ public class LeitorController implements Initializable {
         
     }
 
+    @FXML
+    private void ComboBoxTipoLeitor_MouseClicked(MouseEvent event) {
+
+        Class classe = ComboBoxTipoLeitor.getSelectionModel().getSelectedItem().getClass();
+        String textoLabel;
+
+        if(leitor.getClass() == Aluno.class)
+            textoLabel = "Disciplina";
+        else
+            textoLabel = "Matrícula";
+
+        //String textoLabel = (classe == Aluno.class ?  "Matrícula" : "Disciplina");
+        LabelInfoEspecifica.setText(textoLabel);
+        
+    }
+
     private void exibirDados() {
 
         this.leitor = TabelaLeitores.getSelectionModel().getSelectedItem();
+        
+        if(leitor.getClass() == Aluno.class)
+            aluno = (Aluno) leitor;
+        else
+            professor = (Professor) leitor;
 
         if(leitor == null)
             return;
@@ -186,8 +229,9 @@ public class LeitorController implements Initializable {
         CampoEndereco.setText(leitor.getEndereco());
         CampoTelefone.setText(leitor.getTelefone());
         CampoPrazo.setText(leitor.getPrazoMaximoDevolucao().toString());
-        //Campo.setText(leitor.getTelefone()); TIPO DE LEITOR
-        //CampoTelefone.setText(leitor.getTelefone()); DISCIPLINA OU MATRICULA
+        ComboBoxTipoLeitor.setPromptText(leitor.getClass().getSimpleName());
+        LabelInfoEspecifica.setText(leitor.getClass() == Aluno.class ?  "Matrícula" : "Disciplina");
+        CampoInfoEspecifica.setText(leitor.getClass() == Aluno.class ? aluno.getMatricula() : professor.getDisciplina());
 
     }
 
@@ -203,15 +247,16 @@ public class LeitorController implements Initializable {
         BotaoAlterar.setDisable(habilitar);
         BotaoSalvar.setDisable(!habilitar);
         ComboBoxTipoLeitor.setDisable(!habilitar);
+        CampoInfoEspecifica.setDisable(!habilitar);
 
     }
 
     private void preencherLista() {
 
-        List<String> tiposDeLeitor = new ArrayList<>();
-        tiposDeLeitor.add("Aluno");
-        tiposDeLeitor.add("Professor");
-        ObservableList<String> itensCombo = FXCollections.observableArrayList(tiposDeLeitor);
+        List<Class> tiposDeLeitor = new ArrayList<>();
+        tiposDeLeitor.add(Aluno.class);
+        tiposDeLeitor.add(Professor.class);
+        ObservableList<Class> itensCombo = FXCollections.observableArrayList(tiposDeLeitor);
         ComboBoxTipoLeitor.setItems(itensCombo);
 
         List<Aluno> alunos = daoAluno.buscarTodos();

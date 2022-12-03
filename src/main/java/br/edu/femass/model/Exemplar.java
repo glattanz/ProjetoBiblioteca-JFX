@@ -2,14 +2,11 @@ package br.edu.femass.model;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.edu.femass.dao.DaoExemplar;
@@ -22,26 +19,24 @@ public class Exemplar {
     private Long codigo = 1L;
     private LocalDate dataAquisicao;
     private boolean disponivel;
-    private String tituloExemplar;
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "exemplares")
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Livro livro;
 
     public Exemplar(){
+        this.dataAquisicao = LocalDate.now();
     }
 
     public Exemplar(Livro livro) throws Exception {
-        this.proximoId();
+        //this.proximoId();
         this.dataAquisicao = LocalDate.now();
         this.disponivel = true;
-        this.tituloExemplar = livro.toString();
-
-        //livro.addListaExemplares(this);
+        this.livro = livro;
+        livro.adicionarExemplar(this);
     }
 
     @Override
     public String toString() {
-        return this.getTituloExemplar() + " " + this.getCodigo().toString();
+        return this.getLivro().getTitulo() + " " + this.getCodigo().toString();
     }
 
     public void proximoId() throws Exception {
@@ -60,13 +55,8 @@ public class Exemplar {
     public Long getCodigo() {
         return codigo;
     }
-
     public LocalDate getDataAquisicao() {
         return dataAquisicao;
-    }
-
-    public String getTituloExemplar() {
-        return tituloExemplar;
     }
     public boolean getDisponivel() {
         return disponivel;
@@ -76,5 +66,8 @@ public class Exemplar {
     }
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
+    }
+    public Livro getLivro() {
+        return livro;
     }
 }

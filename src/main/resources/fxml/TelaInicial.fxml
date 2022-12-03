@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.gui.TelaInicialController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.gui.TelaInicialController">
    <children>
       <Label layoutX="76.0" layoutY="14.0" prefHeight="35.0" prefWidth="187.0" text="Projeto Biblioteca">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="95.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView accessibleText="iconTelaInicial" fitHeight="150.0" fitWidth="200.0" layoutX="93.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../imagemTelaInicial.jpg" />
+            <Image url="@../../../../imagemTelaInicial.jpg" />
          </image>
       </ImageView>
       <Button layoutX="134.0" layoutY="280.0" mnemonicParsing="false" onAction="#Atendente_Click" text="Atendente" />
       <Button layoutX="128.0" layoutY="323.0" mnemonicParsing="false" onAction="#Bibliotecario_Click" text="Bibliotecário" />
-      <Label layoutX="119.0" layoutY="244.0" text="Entrar como:">
+      <Label layoutX="118.0" layoutY="239.0" text="Entrar como:">
          <font>
             <Font size="18.0" />
          </font>

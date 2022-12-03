@@ -21,9 +21,9 @@
       </Label>
       <TableView fx:id="TabelaLeitores" layoutX="14.0" layoutY="65.0" onKeyPressed="#ListarLeitores_KeyPressed" onMouseClicked="#ListarLeitores_MouseClicked" prefHeight="200.0" prefWidth="227.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Nome" />
-          <TableColumn prefWidth="75.0" text="Endereço" />
-            <TableColumn prefWidth="75.0" text="Telefone" />
+          <TableColumn fx:id="ColunaNome" prefWidth="75.0" text="Nome" />
+          <TableColumn fx:id="ColunaEndereco" prefWidth="75.0" text="Endereço" />
+            <TableColumn fx:id="ColunaTelefone" prefWidth="75.0" text="Telefone" />
         </columns>
       </TableView>
       <GridPane layoutX="268.0" layoutY="63.0" prefHeight="182.0" prefWidth="294.0">
@@ -47,14 +47,16 @@
             <Label prefHeight="17.0" prefWidth="122.0" text="Telefone:" GridPane.rowIndex="3" />
             <TextField fx:id="CampoEndereco" disable="true" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="CampoTelefone" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label prefHeight="17.0" prefWidth="121.0" text="Prazo de Devolução:" GridPane.rowIndex="4" />
-            <Label prefHeight="17.0" prefWidth="128.0" text="Disciplina:" visible="false" GridPane.rowIndex="6" />
-            <TextField fx:id="CampoPrazo" disable="true" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="17.0" prefWidth="128.0" text="Disciplina:" visible="false" GridPane.rowIndex="4" />
+            <TextField fx:id="CampoPrazo" disable="true" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="CampoDisciplina" disable="true" prefHeight="25.0" prefWidth="130.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label prefHeight="17.0" prefWidth="123.0" text="Código:" GridPane.halignment="LEFT" />
             <TextField fx:id="CampoCodigo" disable="true" prefHeight="25.0" prefWidth="167.0" GridPane.columnIndex="1" />
-            <Label text="Tipo de leitor:" GridPane.rowIndex="5" />
-            <ComboBox fx:id="ComboBoxTipoLeitor" disable="true" prefHeight="25.0" prefWidth="176.0" promptText="Selecione uma opção" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Tipo de leitor:" GridPane.rowIndex="4" />
+            <ComboBox fx:id="ComboBoxTipoLeitor" disable="true" onMouseClicked="#ComboBoxTipoLeitor_MouseClicked" prefHeight="25.0" prefWidth="176.0" promptText="Selecione uma opção" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="LabelInfoEspecifica" text="Texto" GridPane.rowIndex="5" />
+            <TextField fx:id="CampoInfoEspecifica" disable="true" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label prefHeight="17.0" prefWidth="121.0" text="Prazo de Devolução:" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Button fx:id="BotaoInserir" layoutX="190.0" layoutY="277.0" mnemonicParsing="false" onAction="#Inserir_Click" text="Inserir" />

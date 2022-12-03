@@ -8,7 +8,7 @@ public class DaoExemplar extends Dao<Exemplar> {
     
     public List<Exemplar> buscarTodos(){
 
-        Query query = em.createQuery("select E from Exemplar E order by E.titulo");
+        Query query = em.createQuery("select E from Exemplar E order by E.codigo");
 
         return query.getResultList();
     }

@@ -1,7 +1,6 @@
 package br.edu.femass.model;
 
 import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
 
 @Entity
 public class Aluno extends Leitor {
@@ -16,7 +15,7 @@ public class Aluno extends Leitor {
         super(nome, endereco, telefone);
         this.matricula = matricula;
         setPrazoMaximoDevolucao(15);
-        proximoId();
+        //proximoId();
     }
 
     @Override
@@ -26,6 +25,10 @@ public class Aluno extends Leitor {
 
     public String getMatricula() {
         return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
     
 }

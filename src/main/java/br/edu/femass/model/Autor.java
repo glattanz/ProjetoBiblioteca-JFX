@@ -14,7 +14,7 @@ public class Autor {
     private String nome;
     private String sobrenome;
     private String nacionalidade;
-    @OneToMany(cascade = CascadeType.DETACH, mappedBy = "autor", orphanRemoval = false)
+    @OneToMany(cascade = {CascadeType.DETACH})
     private List<Livro> livros;
 
     public Autor(String nome, String sobrenome, String nacionalidade) {
@@ -29,9 +29,14 @@ public class Autor {
 
     }
 
+    public void adicionarLstLivro(Livro livro){
+
+        livros.add(livro);
+    }
+
     @Override
     public String toString(){
-        return this.nome;
+        return this.nome + " " + this.sobrenome;
     }
 
     //Getters and Setters

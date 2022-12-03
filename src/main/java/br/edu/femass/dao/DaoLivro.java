@@ -4,7 +4,7 @@ import java.util.List;
 import javax.persistence.Query;
 import br.edu.femass.model.Livro;
 
-public class DaoLivro extends Dao<Livro> {
+public class DaoLivro extends Dao<Livro> { 
     
     public List<Livro> buscarTodos(){
 

@@ -15,11 +15,15 @@ public class Professor extends Leitor {
         super(nome, endereco, telefone);
         this.disciplina = disciplina;
         setPrazoMaximoDevolucao(30);
-        proximoId();
+        //proximoId();
     }
 
     public String getDisciplina() {
         return disciplina;
+    }
+
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 
 }
