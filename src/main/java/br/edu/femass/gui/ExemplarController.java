@@ -40,7 +40,9 @@ public class ExemplarController implements Initializable {
     @FXML
     private Button BotaoAdicionar;
     @FXML
-    private TableColumn<Livro, Autor> ColunaAutor;
+    private Button Deletar;
+    @FXML
+    private TableColumn<Autor, String> ColunaAutor;
     @FXML
     private TableColumn<Exemplar, Integer> ColunaCodigo;
     @FXML
@@ -59,7 +61,7 @@ public class ExemplarController implements Initializable {
 
         ColunaCodigo.setCellValueFactory(new PropertyValueFactory<Exemplar, Integer>("codigo"));
         ColunaTitulo.setCellValueFactory(new PropertyValueFactory<Livro, String>("titulo"));
-        ColunaAutor.setCellValueFactory(new PropertyValueFactory<Livro, Autor>("autor"));
+        ColunaAutor.setCellValueFactory(new PropertyValueFactory<Autor, String>("autor"));
         ColunaDataAquisicao.setCellValueFactory(new PropertyValueFactory<Exemplar, LocalDate>("dataAquisicao"));
 
     }    
@@ -85,6 +87,13 @@ public class ExemplarController implements Initializable {
 
         exibirDados();
         
+    }
+
+    @FXML
+    void Deletar_Click(ActionEvent event) {
+
+        daoExemplar.apagar(exemplar);
+        preencherLista();
     }
 
     private void exibirDados() {

@@ -56,6 +56,8 @@ public class EmprestimoController implements Initializable {
     private TextField CampoLeitor;
     @FXML
     private TextField CampoLivro;
+    @FXML
+    private Button Devolver;
 
     private Leitor leitor;
     private Livro livro;
@@ -113,13 +115,24 @@ public class EmprestimoController implements Initializable {
     
         livro = ListaLivros.getSelectionModel().getSelectedItem();
         leitor = ListaLeitores.getSelectionModel().getSelectedItem();
-        exemplar = livro.retornaExemplar();
+        exemplar = livro.retornaExemplarDisponivel();
 
         exemplar.setDisponivel(false);
         emprestimo = new Emprestimo(leitor, livro);
         
         emprestimo.setExemplar(exemplar);
         emprestimo.setLeitor(leitor);
+
+        daoEmprestimo.inserir(emprestimo);
+        preencherLista();
+
+    }
+
+    @FXML
+    void Devolver_Click(ActionEvent event) {
+
+        daoEmprestimo.alterar(emprestimo);
+        preencherLista();
 
     }
 

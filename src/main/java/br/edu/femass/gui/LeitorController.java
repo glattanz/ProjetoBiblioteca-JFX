@@ -60,7 +60,7 @@ public class LeitorController implements Initializable {
     @FXML
     private Button BotaoExcluir;
     @FXML
-    private ComboBox<Class> ComboBoxTipoLeitor;
+    private ComboBox<String> ComboBoxTipoLeitor;
     @FXML
     private Label LabelInfoEspecifica;
     
@@ -86,7 +86,9 @@ public class LeitorController implements Initializable {
     private void Salvar_Click(ActionEvent event) {
 
         int indexCombo = ComboBoxTipoLeitor.getSelectionModel().getSelectedIndex();
+        Boolean bool;
 
+        do{
             if(indexCombo == 0){
 
                 aluno = new Aluno();
@@ -102,8 +104,8 @@ public class LeitorController implements Initializable {
                     daoAluno.alterar(aluno);
                 }
 
-                //bool = true;
-                //break;
+                bool = true;
+                break;
 
             }else if(indexCombo == 1){
 
@@ -120,12 +122,13 @@ public class LeitorController implements Initializable {
                     daoProfessor.alterar(professor);
                 }
 
-                //bool = true;
-                //break;
-            //}
+                bool = true;
+                break;
+            }
 
-            //JOptionPane.showMessageDialog(null, this, "Selecione um tipo de leitor", 3);
-        }
+            JOptionPane.showMessageDialog(null, "Selecione um tipo de leitor", "Alerta", 3);
+
+        }while(bool = false);
 
         preencherLista();
         editar(false);
@@ -197,19 +200,18 @@ public class LeitorController implements Initializable {
     }
 
     @FXML
-    private void ComboBoxTipoLeitor_MouseClicked(MouseEvent event) {
+    private void ComboBoxTipoLeitor_Clicked(ActionEvent event) {
 
-        Class classe = ComboBoxTipoLeitor.getSelectionModel().getSelectedItem().getClass();
+        int indexCombo = ComboBoxTipoLeitor.getSelectionModel().getSelectedIndex();
+
         String textoLabel;
 
-        if(leitor.getClass() == Aluno.class)
-            textoLabel = "Disciplina";
+        if(indexCombo == 0)
+            textoLabel = "Matrícula:";
         else
-            textoLabel = "Matrícula";
+            textoLabel = "Disciplina:";
 
-        //String textoLabel = (classe == Aluno.class ?  "Matrícula" : "Disciplina");
         LabelInfoEspecifica.setText(textoLabel);
-        
     }
 
     private void exibirDados() {
@@ -253,10 +255,10 @@ public class LeitorController implements Initializable {
 
     private void preencherLista() {
 
-        List<Class> tiposDeLeitor = new ArrayList<>();
-        tiposDeLeitor.add(Aluno.class);
-        tiposDeLeitor.add(Professor.class);
-        ObservableList<Class> itensCombo = FXCollections.observableArrayList(tiposDeLeitor);
+        List<String> tiposDeLeitor = new ArrayList<>();
+        tiposDeLeitor.add("Aluno");
+        tiposDeLeitor.add("Professor");
+        ObservableList<String> itensCombo = FXCollections.observableArrayList(tiposDeLeitor);
         ComboBoxTipoLeitor.setItems(itensCombo);
 
         List<Aluno> alunos = daoAluno.buscarTodos();

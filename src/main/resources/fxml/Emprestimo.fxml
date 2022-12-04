@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.gui.EmprestimoController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.gui.EmprestimoController">
    <children>
-      <ListView fx:id="ListaLeitores" layoutX="229.0" layoutY="296.0" onMouseClicked="#ListaLeitores_MouseClicked" prefHeight="189.0" prefWidth="200.0" />
-      <ListView fx:id="ListaLivros" layoutX="14.0" layoutY="296.0" onMouseClicked="#ListaLivros_MouseClicked" prefHeight="189.0" prefWidth="200.0" />
-      <Button fx:id="BotaoRealizarEmprestimo" layoutX="307.0" layoutY="490.0" mnemonicParsing="false" onAction="#RealizarEmprestimo_Click" text="Realizar empréstimo" />
-      <Label layoutX="14.0" layoutY="260.0" text="Selecione um leitor e um livro para realizar um empréstimo:" />
-      <Label layoutX="14.0" layoutY="479.0" prefHeight="47.0" prefWidth="158.0" text="São mostrados apenas livros com exemplares disponíveis!" wrapText="true" />
+      <ListView fx:id="ListaLeitores" layoutX="228.0" layoutY="332.0" onMouseClicked="#ListaLeitores_MouseClicked" prefHeight="189.0" prefWidth="200.0" />
+      <ListView fx:id="ListaLivros" layoutX="13.0" layoutY="332.0" onMouseClicked="#ListaLivros_MouseClicked" prefHeight="189.0" prefWidth="200.0" />
+      <Button fx:id="BotaoRealizarEmprestimo" layoutX="306.0" layoutY="526.0" mnemonicParsing="false" onAction="#RealizarEmprestimo_Click" text="Realizar empréstimo" />
+      <Label layoutX="13.0" layoutY="296.0" text="Selecione um leitor e um livro para realizar um empréstimo:" />
+      <Label layoutX="13.0" layoutY="515.0" prefHeight="47.0" prefWidth="158.0" text="São mostrados apenas livros com exemplares disponíveis!" wrapText="true" />
       <TableView layoutX="37.0" layoutY="47.0" prefHeight="200.0" prefWidth="576.0">
          <columns>
             <TableColumn fx:id="ColunaID" prefWidth="39.0" text="ID" />
@@ -36,7 +36,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="PaneInfoSelecionada" layoutX="438.0" layoutY="285.0" prefHeight="116.0" prefWidth="200.0" visible="false">
+      <Pane fx:id="PaneInfoSelecionada" layoutX="437.0" layoutY="321.0" prefHeight="116.0" prefWidth="200.0" visible="false">
          <children>
             <Label text="Informações selecionadas:" />
             <Label layoutY="29.0" text="Leitor:" />
@@ -45,15 +45,16 @@
             <TextField fx:id="CampoLivro" editable="false" layoutX="37.0" layoutY="56.0" />
          </children>
       </Pane>
-      <Label layoutX="14.0" layoutY="277.0" text="Livros:">
+      <Label layoutX="13.0" layoutY="313.0" text="Livros:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="229.0" layoutY="277.0" text="Leitores:">
+      <Label layoutX="228.0" layoutY="313.0" text="Leitores:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="Devolver" disable="true" layoutX="484.0" layoutY="256.0" mnemonicParsing="false" onAction="#Devolver_Click" text="Devolver selecionado" />
    </children>
 </Pane>

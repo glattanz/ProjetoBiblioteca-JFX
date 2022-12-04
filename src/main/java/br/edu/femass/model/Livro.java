@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,11 +46,22 @@ public class Livro {
     //     this.exemplares.remove(indexUltimo);
     // }
     
-    public Exemplar retornaExemplar(){
+    public Exemplar retornaExemplarDisponivel(){
 
-        int indexUltimo = this.exemplares.size();
+        List<Exemplar> exemplaresDisponiveis = new ArrayList<>();
 
-        return this.exemplares.get(indexUltimo);
+        for (Exemplar exemplar : exemplares) {
+
+            if(exemplar.getDisponivel() == true){
+                
+                exemplaresDisponiveis.add(exemplar);
+
+            }
+        }
+
+        int indexUltimo = exemplaresDisponiveis.size() - 1;
+
+        return exemplaresDisponiveis.get(indexUltimo);
     }
 
     @Override

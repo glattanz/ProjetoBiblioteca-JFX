@@ -53,7 +53,7 @@
             <Label prefHeight="17.0" prefWidth="123.0" text="Código:" GridPane.halignment="LEFT" />
             <TextField fx:id="CampoCodigo" disable="true" prefHeight="25.0" prefWidth="167.0" GridPane.columnIndex="1" />
             <Label text="Tipo de leitor:" GridPane.rowIndex="4" />
-            <ComboBox fx:id="ComboBoxTipoLeitor" disable="true" onMouseClicked="#ComboBoxTipoLeitor_MouseClicked" prefHeight="25.0" prefWidth="176.0" promptText="Selecione uma opção" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="ComboBoxTipoLeitor" disable="true" onAction="#ComboBoxTipoLeitor_Clicked" prefHeight="25.0" prefWidth="176.0" promptText="Selecione uma opção" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="LabelInfoEspecifica" text="Texto" GridPane.rowIndex="5" />
             <TextField fx:id="CampoInfoEspecifica" disable="true" prefHeight="25.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label prefHeight="17.0" prefWidth="121.0" text="Prazo de Devolução:" GridPane.rowIndex="6" />
