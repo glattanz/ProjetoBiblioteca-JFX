@@ -4,6 +4,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import br.edu.femass.dao.DaoExemplar;
 import br.edu.femass.dao.DaoLivro;
 import br.edu.femass.model.Autor;
@@ -60,8 +63,7 @@ public class ExemplarController implements Initializable {
         preencherLista();
 
         ColunaCodigo.setCellValueFactory(new PropertyValueFactory<Exemplar, Integer>("codigo"));
-        ColunaTitulo.setCellValueFactory(new PropertyValueFactory<Livro, String>("titulo"));
-        ColunaAutor.setCellValueFactory(new PropertyValueFactory<Autor, String>("autor"));
+        ColunaTitulo.setCellValueFactory(new PropertyValueFactory<Livro, String>("livro"));
         ColunaDataAquisicao.setCellValueFactory(new PropertyValueFactory<Exemplar, LocalDate>("dataAquisicao"));
 
     }    
@@ -92,8 +94,17 @@ public class ExemplarController implements Initializable {
     @FXML
     void Deletar_Click(ActionEvent event) {
 
+        /*if (exemplar.getDisponivel() == false) {
+            
+            JOptionPane.showMessageDialog(null, "Esse exemplar está atrelado à um empréstimo.");
+        }else{
+
+            daoExemplar.apagar(exemplar);
+            preencherLista();
+        }*/
+
         daoExemplar.apagar(exemplar);
-        preencherLista();
+            preencherLista();
     }
 
     private void exibirDados() {

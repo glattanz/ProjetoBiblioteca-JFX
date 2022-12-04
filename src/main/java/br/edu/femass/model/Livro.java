@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.edu.femass.dao.DaoEmprestimo;
+import br.edu.femass.dao.DaoExemplar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +22,9 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
     private String titulo;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.DETACH})
     private Autor autor;
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<Exemplar> exemplares;
 
     public Livro(){
@@ -49,6 +52,11 @@ public class Livro {
     public Exemplar retornaExemplarDisponivel(){
 
         List<Exemplar> exemplaresDisponiveis = new ArrayList<>();
+
+
+        DaoExemplar daoExemplar = new DaoExemplar();
+
+        exemplares = daoExemplar.buscarTodos();
 
         for (Exemplar exemplar : exemplares) {
 

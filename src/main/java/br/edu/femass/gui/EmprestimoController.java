@@ -23,10 +23,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import net.bytebuddy.asm.Advice.Local;
 
 public class EmprestimoController implements Initializable {
     
@@ -57,7 +60,9 @@ public class EmprestimoController implements Initializable {
     @FXML
     private TextField CampoLivro;
     @FXML
-    private Button Devolver;
+    private Button BotaoDevolver;
+    @FXML
+    private TableView<Emprestimo> TabelaEmprestimos;
 
     private Leitor leitor;
     private Livro livro;
@@ -85,11 +90,11 @@ public class EmprestimoController implements Initializable {
         }
 
         ColunaDataDevolucao.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataDevolucao"));
-        ColunaDataEmprestimo.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataDevolucao"));
+        ColunaDataEmprestimo.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataEmprestimo"));
         ColunaDataPrevisao.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataPrevistaDevolucao"));
         ColunaID.setCellValueFactory(new PropertyValueFactory<Emprestimo, Long>("codigo"));
         ColunaLeitor.setCellValueFactory(new PropertyValueFactory<Leitor, String>("leitor"));
-        ColunaLivro.setCellValueFactory(new PropertyValueFactory<Livro, String>("livro"));
+        ColunaLivro.setCellValueFactory(new PropertyValueFactory<Livro, String>("exemplar"));
         ColunaAtrasado.setCellValueFactory(new PropertyValueFactory<Exemplar, Boolean>("atrasado"));
     } 
 
@@ -129,10 +134,28 @@ public class EmprestimoController implements Initializable {
     }
 
     @FXML
-    void Devolver_Click(ActionEvent event) {
+    void BotaoDevolver_Click(ActionEvent event) {
+
+        emprestimo = TabelaEmprestimos.getSelectionModel().getSelectedItem();
+
+        emprestimo.setDataDevolucao(LocalDate.now());
 
         daoEmprestimo.alterar(emprestimo);
         preencherLista();
+
+    }
+
+    @FXML
+    void TabelaEmprestimos_KeyPressed(KeyEvent event) {
+
+        BotaoDevolver.setDisable(false);
+
+    }
+
+    @FXML
+    void TabelaEmprestimos_MouseClicked(MouseEvent event) {
+
+        BotaoDevolver.setDisable(false);
 
     }
 
@@ -171,5 +194,21 @@ public class EmprestimoController implements Initializable {
 
         ObservableList<Livro> data2 = FXCollections.observableArrayList(livrosDisponiveis);
         ListaLivros.setItems(data2);
+
+        List<Emprestimo> emprestimos = daoEmprestimo.buscarTodos();
+
+        List<Emprestimo> emprestimosEmAberto = new ArrayList<>();
+
+        for (Emprestimo emprestimo : emprestimos) {
+
+            if(emprestimo.getDataDevolucao() == null){
+                
+                emprestimosEmAberto.add(emprestimo);
+
+            }
+        }
+
+        ObservableList<Emprestimo> data3 = FXCollections.observableArrayList(emprestimosEmAberto);
+        TabelaEmprestimos.setItems(data3);
     }
 }

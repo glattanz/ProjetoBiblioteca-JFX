@@ -60,6 +60,7 @@ public class AutorController implements Initializable {
         }
 
         preencherLista();
+        dadosEmBranco();
         editar(false);
         //TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
     }
@@ -76,6 +77,7 @@ public class AutorController implements Initializable {
     private void Excluir_Click(ActionEvent event) {
 
         daoAutor.apagar(autor);
+        dadosEmBranco();
         preencherLista();
     }
 
@@ -87,13 +89,14 @@ public class AutorController implements Initializable {
         autor = new Autor();
 
         //Deixa os campos em branco
-        CampoNome.setText("");
-        CampoSobrenome.setText("");
-        CampoNacionalidade.setText("");
+        // CampoNome.setText("");
+        // CampoSobrenome.setText("");
+        // CampoNacionalidade.setText("");
 
         //Deixa o cursor nesse campo para digitar
         CampoNome.requestFocus();
 
+        dadosEmBranco();
         preencherLista();
         
     }
@@ -109,6 +112,14 @@ public class AutorController implements Initializable {
     private void ListarAutores_MouseClicked(MouseEvent event) {
 
         exibirDados();
+        
+    }
+
+    private void dadosEmBranco(){
+
+        CampoNome.setText("");
+        CampoSobrenome.setText("");
+        CampoNacionalidade.setText("");
         
     }
 

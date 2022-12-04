@@ -19,7 +19,7 @@ public class Exemplar {
     private Long codigo = 1L;
     private LocalDate dataAquisicao;
     private boolean disponivel;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.DETACH})
     private Livro livro;
 
     public Exemplar(){

@@ -22,9 +22,8 @@
       <TableView fx:id="TabelaExemplares" layoutX="14.0" layoutY="66.0" onKeyPressed="#ListarExemplar_KeyPressed" onMouseClicked="#ListarExemplar_MouseClicked" prefHeight="200.0" prefWidth="331.0">
         <columns>
           <TableColumn fx:id="ColunaCodigo" prefWidth="53.0" text="Código" />
-          <TableColumn fx:id="ColunaTitulo" prefWidth="97.0" text="Título" />
-            <TableColumn fx:id="ColunaAutor" prefWidth="75.0" text="Autor" />
-            <TableColumn fx:id="ColunaDataAquisicao" prefWidth="105.0" text="Data de aquisição" />
+          <TableColumn fx:id="ColunaTitulo" prefWidth="166.0" text="Título" />
+            <TableColumn fx:id="ColunaDataAquisicao" prefWidth="111.0" text="Data de aquisição" />
         </columns>
       </TableView>
       <ComboBox fx:id="ComboBoxLivros" layoutX="14.0" layoutY="309.0" prefHeight="25.0" prefWidth="182.0" promptText="Selecione um livro" />

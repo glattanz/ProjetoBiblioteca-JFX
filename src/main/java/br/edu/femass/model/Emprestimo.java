@@ -12,20 +12,20 @@ import javax.persistence.ManyToOne;
 public class Emprestimo {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long codigo = 1L;
     private LocalDate dataEmprestimo;
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataDevolucao;
     private Boolean atrasado;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.DETACH})
     private Exemplar exemplar;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.DETACH})
     private Leitor leitor;
 
     public Emprestimo(){
         this.dataEmprestimo = LocalDate.now();
-        this.dataPrevistaDevolucao = LocalDate.now().plusDays(leitor.getPrazoMaximoDevolucao());
+        //this.dataPrevistaDevolucao = LocalDate.now().plusDays(leitor.getPrazoMaximoDevolucao());
         this.atrasado = false;
     }
 
