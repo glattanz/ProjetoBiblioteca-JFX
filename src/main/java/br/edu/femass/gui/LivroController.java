@@ -3,7 +3,6 @@ package br.edu.femass.gui;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import br.edu.femass.dao.DaoAutor;
 import br.edu.femass.dao.DaoExemplar;
 import br.edu.femass.dao.DaoLivro;
@@ -24,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class LivroController implements Initializable {
-    
+
     @FXML
     private TextField CampoCodigo;
     @FXML
@@ -34,7 +33,7 @@ public class LivroController implements Initializable {
     @FXML
     private ListView<Livro> ListaLivros;
     @FXML
-    private TableView<Exemplar> TabelaEmprestimos; //TODO: Que porra é essa
+    private TableView<Exemplar> TabelaEmprestimos; // TODO: Que porra é essa
     @FXML
     private Button BotaoSalvar;
     @FXML
@@ -52,34 +51,34 @@ public class LivroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         preencherLista();
 
-    }    
+    }
 
     @FXML
     private void Salvar_Click(ActionEvent event) {
 
         Autor autor = ComboBoxAutores.getSelectionModel().getSelectedItem();
-        
+
         livro.setTitulo(CampoTitulo.getText());
         livro.setAutor(autor);
-        autor.adicionarLstLivro(livro); 
-        
+        autor.adicionarLstLivro(livro);
+
         if (inserindo) {
             daoLivro.inserir(livro);
-        }else{
+        } else {
             daoLivro.alterar(livro);
         }
 
         preencherLista();
         editar(false);
-        //TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
+        // TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
     }
 
     @FXML
     private void Alterar_Click(ActionEvent event) {
-    
+
         editar(true);
         inserindo = false;
 
@@ -99,17 +98,16 @@ public class LivroController implements Initializable {
         inserindo = true;
         livro = new Livro();
 
-        //Deixa os campos em branco
+        // Deixa os campos em branco
         CampoCodigo.setText("");
         CampoTitulo.setText("");
         ComboBoxAutores.setValue(null);
-        //TO DO: Verificar como fica a combobox 
 
-        //Deixa o cursor nesse campo para digitar
+        // Deixa o cursor nesse campo para digitar
         CampoTitulo.requestFocus();
 
         preencherLista();
-        
+
     }
 
     @FXML
@@ -123,14 +121,14 @@ public class LivroController implements Initializable {
     private void ListarLeitores_MouseClicked(MouseEvent event) {
 
         exibirDados();
-        
+
     }
 
     private void exibirDados() {
 
         this.livro = ListaLivros.getSelectionModel().getSelectedItem();
 
-        if(livro == null)
+        if (livro == null)
             return;
 
         CampoCodigo.setText(livro.getCodigo().toString());
@@ -141,9 +139,9 @@ public class LivroController implements Initializable {
 
     private void editar(boolean habilitar) {
 
-        ListaLivros.setDisable(habilitar); //Desabilita
-        TabelaEmprestimos.setDisable(habilitar); //Desabilita
-        CampoTitulo.setDisable(!habilitar); //Habilita
+        ListaLivros.setDisable(habilitar); // Desabilita
+        TabelaEmprestimos.setDisable(habilitar); // Desabilita
+        CampoTitulo.setDisable(!habilitar); // Habilita
         ComboBoxAutores.setDisable(!habilitar);
         BotaoExcluir.setDisable(habilitar);
         BotaoInserir.setDisable(habilitar);

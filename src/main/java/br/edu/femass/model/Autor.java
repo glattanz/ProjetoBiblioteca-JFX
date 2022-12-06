@@ -1,7 +1,6 @@
 package br.edu.femass.model;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +13,7 @@ public class Autor {
     private String nome;
     private String sobrenome;
     private String nacionalidade;
-    @OneToMany(cascade = {CascadeType.DETACH})
+    @OneToMany(cascade = { CascadeType.ALL })
     private List<Livro> livros;
 
     public Autor(String nome, String sobrenome, String nacionalidade) {
@@ -22,24 +21,24 @@ public class Autor {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.nacionalidade = nacionalidade;
-        
-    }
-
-    public Autor(){
 
     }
 
-    public void adicionarLstLivro(Livro livro){
+    public Autor() {
+
+    }
+
+    public void adicionarLstLivro(Livro livro) {
 
         livros.add(livro);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.nome + " " + this.sobrenome;
     }
 
-    //Getters and Setters
+    // Getters and Setters
     public String getNome() {
         return nome;
     }

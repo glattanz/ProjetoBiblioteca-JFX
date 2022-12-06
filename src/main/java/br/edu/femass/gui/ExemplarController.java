@@ -4,9 +4,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.JOptionPane;
-
 import br.edu.femass.dao.DaoExemplar;
 import br.edu.femass.dao.DaoLivro;
 import br.edu.femass.model.Autor;
@@ -27,7 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class ExemplarController implements Initializable {
-    
+
     @FXML
     private TextField CampoCodigo;
     @FXML
@@ -59,20 +56,20 @@ public class ExemplarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         preencherLista();
 
         ColunaCodigo.setCellValueFactory(new PropertyValueFactory<Exemplar, Integer>("codigo"));
         ColunaTitulo.setCellValueFactory(new PropertyValueFactory<Livro, String>("livro"));
         ColunaDataAquisicao.setCellValueFactory(new PropertyValueFactory<Exemplar, LocalDate>("dataAquisicao"));
 
-    }    
+    }
 
     @FXML
     private void Adicionar_Click(ActionEvent event) throws Exception {
-        
+
         Exemplar exemplar = new Exemplar(ComboBoxLivros.getSelectionModel().getSelectedItem());
-    
+
         daoExemplar.inserir(exemplar);
         preencherLista();
     }
@@ -88,30 +85,33 @@ public class ExemplarController implements Initializable {
     private void ListarExemplar_MouseClicked(MouseEvent event) {
 
         exibirDados();
-        
+
     }
 
     @FXML
     void Deletar_Click(ActionEvent event) {
 
-        /*if (exemplar.getDisponivel() == false) {
-            
-            JOptionPane.showMessageDialog(null, "Esse exemplar está atrelado à um empréstimo.");
-        }else{
-
-            daoExemplar.apagar(exemplar);
-            preencherLista();
-        }*/
+        /*
+         * if (exemplar.getDisponivel() == false) {
+         * 
+         * JOptionPane.showMessageDialog(null,
+         * "Esse exemplar está atrelado à um empréstimo.");
+         * }else{
+         * 
+         * daoExemplar.apagar(exemplar);
+         * preencherLista();
+         * }
+         */
 
         daoExemplar.apagar(exemplar);
-            preencherLista();
+        preencherLista();
     }
 
     private void exibirDados() {
 
         this.exemplar = TabelaExemplares.getSelectionModel().getSelectedItem();
 
-        if(exemplar == null)
+        if (exemplar == null)
             return;
 
         CampoCodigo.setText(exemplar.getCodigo().toString());

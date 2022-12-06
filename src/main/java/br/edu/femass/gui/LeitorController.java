@@ -28,7 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class LeitorController implements Initializable {
-    
+
     @FXML
     private TextField CampoCodigo;
     @FXML
@@ -46,11 +46,11 @@ public class LeitorController implements Initializable {
     @FXML
     private TableView<Leitor> TabelaLeitores;
     @FXML
-    private TableColumn<Leitor, String>ColunaEndereco;
+    private TableColumn<Leitor, String> ColunaEndereco;
     @FXML
-    private TableColumn<Leitor, String>ColunaNome;
+    private TableColumn<Leitor, String> ColunaNome;
     @FXML
-    private TableColumn<Leitor, String>ColunaTelefone;
+    private TableColumn<Leitor, String> ColunaTelefone;
     @FXML
     private TableView<Emprestimo> TabelaEmprestimos;
     @FXML
@@ -65,7 +65,7 @@ public class LeitorController implements Initializable {
     private ComboBox<String> ComboBoxTipoLeitor;
     @FXML
     private Label LabelInfoEspecifica;
-    
+
     private DaoAluno daoAluno = new DaoAluno();
     private DaoProfessor daoProfessor = new DaoProfessor();
     private DaoEmprestimo daoEmprestimo = new DaoEmprestimo();
@@ -76,13 +76,13 @@ public class LeitorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         preencherLista();
         ColunaNome.setCellValueFactory(new PropertyValueFactory<Leitor, String>("nome"));
         ColunaEndereco.setCellValueFactory(new PropertyValueFactory<Leitor, String>("endereco"));
         ColunaTelefone.setCellValueFactory(new PropertyValueFactory<Leitor, String>("telefone"));
 
-    }    
+    }
 
     @FXML
     private void Salvar_Click(ActionEvent event) {
@@ -90,8 +90,8 @@ public class LeitorController implements Initializable {
         int indexCombo = ComboBoxTipoLeitor.getSelectionModel().getSelectedIndex();
         Boolean bool;
 
-        do{
-            if(indexCombo == 0){
+        do {
+            if (indexCombo == 0) {
 
                 aluno = new Aluno();
 
@@ -99,12 +99,12 @@ public class LeitorController implements Initializable {
                 aluno.setEndereco(CampoEndereco.getText());
                 aluno.setTelefone(CampoTelefone.getText());
                 aluno.setMatricula(CampoInfoEspecifica.getText());
-                
+
                 if (inserindo) {
                     daoAluno.inserir(aluno);
 
                     JOptionPane.showMessageDialog(null, "Leitor salvo!");
-                }else{
+                } else {
                     daoAluno.alterar(aluno);
 
                     JOptionPane.showMessageDialog(null, "Leitor salvo!");
@@ -113,7 +113,7 @@ public class LeitorController implements Initializable {
                 bool = true;
                 break;
 
-            }else if(indexCombo == 1){
+            } else if (indexCombo == 1) {
 
                 professor = new Professor();
 
@@ -121,12 +121,12 @@ public class LeitorController implements Initializable {
                 professor.setEndereco(CampoEndereco.getText());
                 professor.setTelefone(CampoTelefone.getText());
                 professor.setDisciplina(CampoInfoEspecifica.getText());
-                
+
                 if (inserindo) {
                     daoProfessor.inserir(professor);
 
                     JOptionPane.showMessageDialog(null, "Leitor salvo!");
-                }else{
+                } else {
                     daoProfessor.alterar(professor);
 
                     JOptionPane.showMessageDialog(null, "Leitor salvo!");
@@ -136,14 +136,14 @@ public class LeitorController implements Initializable {
                 break;
             }
 
-            JOptionPane.showMessageDialog(null, "Selecione um tipo de leitor", "Alerta", 3);
+            JOptionPane.showMessageDialog(null, "Selecione um tipo de leitor");
 
-        }while(bool = false);
+        } while (bool = false);
 
         preencherLista();
         dadosEmBranco();
         editar(false);
-        //TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
+        // TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
     }
 
     @FXML
@@ -158,19 +158,19 @@ public class LeitorController implements Initializable {
     private void Excluir_Click(ActionEvent event) {
 
         if (TabelaLeitores.getSelectionModel().getSelectedItem().getClass() == Aluno.class) {
-            
+
             aluno = (Aluno) TabelaLeitores.getSelectionModel().getSelectedItem();
-            
+
             daoAluno.apagar(aluno);
 
         } else if (TabelaLeitores.getSelectionModel().getSelectedItem().getClass() == Professor.class) {
-            
+
             professor = (Professor) TabelaLeitores.getSelectionModel().getSelectedItem();
 
             daoProfessor.apagar(professor);
 
         }
-        
+
         JOptionPane.showMessageDialog(null, "Leitor deletado!");
 
         dadosEmBranco();
@@ -183,7 +183,7 @@ public class LeitorController implements Initializable {
         editar(true);
         inserindo = true;
 
-        //Deixa os campos em branco
+        // Deixa os campos em branco
         // CampoCodigo.setText("");
         // CampoNome.setText("");
         // CampoEndereco.setText("");
@@ -194,11 +194,11 @@ public class LeitorController implements Initializable {
         // LabelInfoEspecifica.setText("");
         dadosEmBranco();
 
-        //Deixa o cursor nesse campo para digitar
+        // Deixa o cursor nesse campo para digitar
         CampoNome.requestFocus();
 
         preencherLista();
-        
+
     }
 
     @FXML
@@ -216,7 +216,7 @@ public class LeitorController implements Initializable {
         exibirDados();
 
         preencherLista();
-        
+
     }
 
     @FXML
@@ -226,25 +226,25 @@ public class LeitorController implements Initializable {
 
         String textoLabel;
 
-        if(indexCombo == 0)
+        if (indexCombo == 0)
             textoLabel = "Matrícula:";
         else
             textoLabel = "Disciplina:";
 
         LabelInfoEspecifica.setText(textoLabel);
-        
+
     }
 
     private void exibirDados() {
 
         this.leitor = TabelaLeitores.getSelectionModel().getSelectedItem();
-        
-        if(leitor.getClass() == Aluno.class)
+
+        if (leitor.getClass() == Aluno.class)
             aluno = (Aluno) leitor;
         else
             professor = (Professor) leitor;
 
-        if(leitor == null)
+        if (leitor == null)
             return;
 
         CampoCodigo.setText(leitor.getCodigo().toString());
@@ -253,12 +253,13 @@ public class LeitorController implements Initializable {
         CampoTelefone.setText(leitor.getTelefone());
         CampoPrazo.setText(leitor.getPrazoMaximoDevolucao().toString());
         ComboBoxTipoLeitor.setPromptText(leitor.getClass().getSimpleName());
-        LabelInfoEspecifica.setText(leitor.getClass() == Aluno.class ?  "Matrícula" : "Disciplina");
-        CampoInfoEspecifica.setText(leitor.getClass() == Aluno.class ? aluno.getMatricula() : professor.getDisciplina());
+        LabelInfoEspecifica.setText(leitor.getClass() == Aluno.class ? "Matrícula" : "Disciplina");
+        CampoInfoEspecifica
+                .setText(leitor.getClass() == Aluno.class ? aluno.getMatricula() : professor.getDisciplina());
 
     }
 
-    private void dadosEmBranco(){
+    private void dadosEmBranco() {
 
         CampoCodigo.setText("");
         CampoNome.setText("");
@@ -266,7 +267,8 @@ public class LeitorController implements Initializable {
         CampoTelefone.setText("");
         CampoInfoEspecifica.setText("");
         CampoPrazo.setText("");
-        ComboBoxTipoLeitor.setValue("Selecione um tipo de leitor");;
+        ComboBoxTipoLeitor.setValue("Selecione um tipo de leitor");
+        ;
         LabelInfoEspecifica.setText("");
         CampoInfoEspecifica.setText("");
 
@@ -274,9 +276,9 @@ public class LeitorController implements Initializable {
 
     private void editar(boolean habilitar) {
 
-        TabelaLeitores.setDisable(habilitar); //Desabilita
-        TabelaEmprestimos.setDisable(habilitar); //Desabilita
-        CampoNome.setDisable(!habilitar); //Habilita
+        TabelaLeitores.setDisable(habilitar); // Desabilita
+        TabelaEmprestimos.setDisable(habilitar); // Desabilita
+        CampoNome.setDisable(!habilitar); // Habilita
         CampoEndereco.setDisable(!habilitar);
         CampoTelefone.setDisable(!habilitar);
         BotaoExcluir.setDisable(habilitar);
@@ -312,16 +314,15 @@ public class LeitorController implements Initializable {
 
         for (Emprestimo emprestimo : emprestimos) {
 
-            if(emprestimo.getLeitor() == leitor){
-                
+            if (emprestimo.getLeitor() == leitor) {
+
                 emprestimosDoLeitor.add(emprestimo);
 
             }
         }
 
         ObservableList<Emprestimo> data2 = FXCollections.observableArrayList(emprestimos);
-        TabelaEmprestimos.setItems(data2); 
+        TabelaEmprestimos.setItems(data2);
 
     }
 }
-

@@ -7,7 +7,7 @@ public class Aluno extends Leitor {
 
     private String matricula;
 
-    public Aluno(){
+    public Aluno() {
         setPrazoMaximoDevolucao(15);
     }
 
@@ -15,7 +15,7 @@ public class Aluno extends Leitor {
         super(nome, endereco, telefone);
         this.matricula = matricula;
         setPrazoMaximoDevolucao(15);
-        //proximoId();
+        // proximoId();
     }
 
     @Override
@@ -30,5 +30,5 @@ public class Aluno extends Leitor {
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-    
+
 }

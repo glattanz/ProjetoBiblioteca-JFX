@@ -29,10 +29,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import net.bytebuddy.asm.Advice.Local;
 
 public class EmprestimoController implements Initializable {
-    
+
     @FXML
     private Button BotaoRealizarEmprestimo;
     @FXML
@@ -76,7 +75,7 @@ public class EmprestimoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         preencherLista();
 
         List<Emprestimo> emprestimos = daoEmprestimo.buscarTodos();
@@ -91,16 +90,17 @@ public class EmprestimoController implements Initializable {
 
         ColunaDataDevolucao.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataDevolucao"));
         ColunaDataEmprestimo.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataEmprestimo"));
-        ColunaDataPrevisao.setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataPrevistaDevolucao"));
+        ColunaDataPrevisao
+                .setCellValueFactory(new PropertyValueFactory<Emprestimo, LocalDate>("dataPrevistaDevolucao"));
         ColunaID.setCellValueFactory(new PropertyValueFactory<Emprestimo, Long>("codigo"));
         ColunaLeitor.setCellValueFactory(new PropertyValueFactory<Leitor, String>("leitor"));
         ColunaLivro.setCellValueFactory(new PropertyValueFactory<Livro, String>("exemplar"));
         ColunaAtrasado.setCellValueFactory(new PropertyValueFactory<Exemplar, Boolean>("atrasado"));
-    } 
+    }
 
     @FXML
     private void ListaLivros_MouseClicked(MouseEvent event) {
-    
+
         livro = ListaLivros.getSelectionModel().getSelectedItem();
 
         exibirInfoSelecionada();
@@ -109,7 +109,7 @@ public class EmprestimoController implements Initializable {
 
     @FXML
     private void ListaLeitores_MouseClicked(MouseEvent event) {
-    
+
         leitor = ListaLeitores.getSelectionModel().getSelectedItem();
 
         exibirInfoSelecionada();
@@ -117,14 +117,14 @@ public class EmprestimoController implements Initializable {
 
     @FXML
     private void RealizarEmprestimo_Click(ActionEvent event) {
-    
+
         livro = ListaLivros.getSelectionModel().getSelectedItem();
         leitor = ListaLeitores.getSelectionModel().getSelectedItem();
         exemplar = livro.retornaExemplarDisponivel();
 
         exemplar.setDisponivel(false);
         emprestimo = new Emprestimo(leitor, livro);
-        
+
         emprestimo.setExemplar(exemplar);
         emprestimo.setLeitor(leitor);
 
@@ -184,11 +184,14 @@ public class EmprestimoController implements Initializable {
         List<Livro> livrosDisponiveis = new ArrayList<>();
 
         for (Livro livro : livros) {
-
-            if(livro.getExemplares().size() > 0){
-                
-                livrosDisponiveis.add(livro);
-
+            if (livro.getExemplares().size() > 0) {
+                List<Exemplar> exemplares = livro.getExemplares();
+                for (Exemplar exemplar : exemplares) {
+                    if (exemplar.getDisponivel() == true) {
+                        livrosDisponiveis.add(livro);
+                        break;
+                    }
+                }
             }
         }
 
@@ -201,8 +204,8 @@ public class EmprestimoController implements Initializable {
 
         for (Emprestimo emprestimo : emprestimos) {
 
-            if(emprestimo.getDataDevolucao() == null){
-                
+            if (emprestimo.getDataDevolucao() == null) {
+
                 emprestimosEmAberto.add(emprestimo);
 
             }

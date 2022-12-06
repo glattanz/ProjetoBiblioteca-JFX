@@ -41,10 +41,10 @@ public class AutorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         preencherLista();
 
-    }    
+    }
 
     @FXML
     private void Salvar_Click(ActionEvent event) {
@@ -52,22 +52,22 @@ public class AutorController implements Initializable {
         autor.setNome(CampoNome.getText());
         autor.setSobrenome(CampoSobrenome.getText());
         autor.setNacionalidade(CampoNacionalidade.getText());
-        
+
         if (inserindo) {
             daoAutor.inserir(autor);
-        }else{
+        } else {
             daoAutor.alterar(autor);
         }
 
         preencherLista();
         dadosEmBranco();
         editar(false);
-        //TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
+        // TODO: Fazer um entidade.getId() para mostrar o código que foi gerado
     }
 
     @FXML
     private void Alterar_Click(ActionEvent event) {
-    
+
         editar(true);
         inserindo = false;
 
@@ -88,19 +88,19 @@ public class AutorController implements Initializable {
         inserindo = true;
         autor = new Autor();
 
-        //Deixa os campos em branco
+        // Deixa os campos em branco
         // CampoNome.setText("");
         // CampoSobrenome.setText("");
         // CampoNacionalidade.setText("");
 
-        //Deixa o cursor nesse campo para digitar
+        // Deixa o cursor nesse campo para digitar
         CampoNome.requestFocus();
 
         dadosEmBranco();
         preencherLista();
-        
+
     }
-    
+
     @FXML
     private void ListarAutores_KeyPressed(KeyEvent event) {
 
@@ -112,22 +112,22 @@ public class AutorController implements Initializable {
     private void ListarAutores_MouseClicked(MouseEvent event) {
 
         exibirDados();
-        
+
     }
 
-    private void dadosEmBranco(){
+    private void dadosEmBranco() {
 
         CampoNome.setText("");
         CampoSobrenome.setText("");
         CampoNacionalidade.setText("");
-        
+
     }
 
     private void exibirDados() {
 
         this.autor = ListaAutores.getSelectionModel().getSelectedItem();
 
-        if(autor == null)
+        if (autor == null)
             return;
 
         CampoNome.setText(autor.getNome());
@@ -138,8 +138,8 @@ public class AutorController implements Initializable {
 
     private void editar(boolean habilitar) {
 
-        ListaAutores.setDisable(habilitar); //Desabilita
-        CampoNome.setDisable(!habilitar); //Habilita
+        ListaAutores.setDisable(habilitar); // Desabilita
+        CampoNome.setDisable(!habilitar); // Habilita
         CampoSobrenome.setDisable(!habilitar);
         CampoNacionalidade.setDisable(!habilitar);
         BotaoSalvar.setDisable(!habilitar);

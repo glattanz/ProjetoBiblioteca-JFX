@@ -8,10 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import br.edu.femass.dao.DaoEmprestimo;
 import br.edu.femass.dao.DaoExemplar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +19,12 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
     private String titulo;
-    @ManyToOne(cascade = {CascadeType.DETACH})
+    @ManyToOne(cascade = { CascadeType.ALL })
     private Autor autor;
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    private List<Exemplar> exemplares;
+    @OneToMany(cascade = { CascadeType.DETACH }, fetch = FetchType.EAGER)
+    private List<Exemplar> exemplares = new ArrayList<>();
 
-    public Livro(){
+    public Livro() {
 
     }
 
@@ -35,24 +32,16 @@ public class Livro {
 
         this.titulo = titulo;
         this.autor = autor;
-        
+
     }
 
-    public void adicionarExemplar(Exemplar exemplar){
+    public void adicionarExemplar(Exemplar exemplar) {
         this.exemplares.add(exemplar);
     }
 
-    // public void removerUltimoExemplar(){
-
-    //     int indexUltimo = this.exemplares.size();
-
-    //     this.exemplares.remove(indexUltimo);
-    // }
-    
-    public Exemplar retornaExemplarDisponivel(){
+    public Exemplar retornaExemplarDisponivel() {
 
         List<Exemplar> exemplaresDisponiveis = new ArrayList<>();
-
 
         DaoExemplar daoExemplar = new DaoExemplar();
 
@@ -60,8 +49,8 @@ public class Livro {
 
         for (Exemplar exemplar : exemplares) {
 
-            if(exemplar.getDisponivel() == true){
-                
+            if (exemplar.getDisponivel() == true) {
+
                 exemplaresDisponiveis.add(exemplar);
 
             }
@@ -77,7 +66,7 @@ public class Livro {
         return titulo.toString();
     }
 
-    //Getters and Setters
+    // Getters and Setters
     public Long getCodigo() {
         return codigo;
     }

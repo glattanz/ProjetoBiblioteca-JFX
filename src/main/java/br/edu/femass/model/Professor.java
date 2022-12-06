@@ -4,10 +4,10 @@ import javax.persistence.Entity;
 
 @Entity
 public class Professor extends Leitor {
- 
+
     private String disciplina;
 
-    public Professor(){
+    public Professor() {
         setPrazoMaximoDevolucao(30);
     }
 
@@ -15,7 +15,6 @@ public class Professor extends Leitor {
         super(nome, endereco, telefone);
         this.disciplina = disciplina;
         setPrazoMaximoDevolucao(30);
-        //proximoId();
     }
 
     public String getDisciplina() {
@@ -25,5 +24,4 @@ public class Professor extends Leitor {
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
-
 }

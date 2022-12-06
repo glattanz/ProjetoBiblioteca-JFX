@@ -10,26 +10,25 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Emprestimo {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo = 1L;
     private LocalDate dataEmprestimo;
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataDevolucao;
     private Boolean atrasado;
-    @ManyToOne(cascade = {CascadeType.DETACH})
+    @ManyToOne(cascade = { CascadeType.ALL })
     private Exemplar exemplar;
-    @ManyToOne(cascade = {CascadeType.DETACH})
+    @ManyToOne(cascade = { CascadeType.ALL })
     private Leitor leitor;
 
-    public Emprestimo(){
+    public Emprestimo() {
         this.dataEmprestimo = LocalDate.now();
-        //this.dataPrevistaDevolucao = LocalDate.now().plusDays(leitor.getPrazoMaximoDevolucao());
         this.atrasado = false;
     }
 
-    public Emprestimo(Leitor leitor, Livro livro){
+    public Emprestimo(Leitor leitor, Livro livro) {
         this.leitor = leitor;
         this.exemplar = livro.retornaExemplarDisponivel();
         this.dataEmprestimo = LocalDate.now();
@@ -37,8 +36,8 @@ public class Emprestimo {
         this.atrasado = false;
     }
 
-    //Retorna true se tiver atrasado
-    public Boolean verificaAtraso(){
+    // Retorna true se tiver atrasado
+    public Boolean verificaAtraso() {
         return this.getDataPrevistaDevolucao().isBefore(LocalDate.now());
     }
 
